@@ -1,144 +1,112 @@
-# Just Eat Takeaway UI Automation (Playwright + Python)
-
-##  Overview
-Automated UI tests for the Just Eat Takeaway career portal using **Playwright with Python**.
-Implements Page Object Model (POM) for cleaner, reusable test design.
-
----
+# Just Eat Takeaway UI Automation (Playwright + JavaScript)
+## Overview
+Automated UI tests for the Just Eat Takeaway career portal using Playwright with JavaScript. Implements Page Object Model (POM) for cleaner, reusable test design.
 
 ## Project Structure
-
-```bash
-Jet_Automation_Task/
+``` bash
+jet-automation-task-js/
 │
 ├── pages/
-│ ├── careers_home_page.py # Page Object Model (POM) for the careers page
-│ └── search_results_page.py # Page Object Model (POM) for the search page
+│   ├── careersHomePage.js       # Page Object Model for careers page
+│   └── searchResultsPage.js        # Page Object Model for search results page
 │
 ├── tests/
-│ ├── test_search_test_jobs.py # Test Case 1: Job search using keyword "Test"
-│ ├── test_sales_jobs.py # Test Case 2: Job search using category "Sales"
+│   ├── test-search-test-jobs.spec.js    # Test Case 1: Job search using keyword "Test"
+│   └── test-sales-jobs.spec.js      # Test Case 2: Job search using category "Sales"
 │
 ├── utils/
-│ └──page_helper.py # contains helping methods
+│   └── pageHelper.js               # Helper methods for page interactions
 │
-├── conftest.py # Fixture file for tests
-├── README.md # Setup and execution instructions
-├── playwright.config.json # playright configuration
-└── requirements.txt # Python dependenciesfile
+├── playwright.config.js            # Playwright configuration
+├── package.json                    # Project dependencies
+├── package-lock.json               # Auto-generated lock file
+└── README.md                       # Setup and execution instructions
 ```
-
 ## Prerequisites
-
 Before running the tests, make sure you have:
 
-- **Python 3.9+** - The python path should be added to the environment variables
-- **Google Chrome / Edge / Firefox** (for Playwright) - Update it in conftest.py to run on different browser
-- **Git**
+- Node.js 16+ - Download and added to the environment path variables
+
+- Google Chrome / Microsoft Edge / Firefox (for Playwright)
+
+- Git
+
+- Visual Studio Code (recommended IDE)
 
 ## Setup Instructions
+1. Clone and Navigate to Project
+```bash
+git clone https://github.com/Shahab-Cloud/Jets_Automation_Assignment
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Shahab-Cloud/Jets_Automation_Assignment.git
-   cd Jets_Automation_Assignment
-   ```
-   
-2. **Create and Activate Virtual Environment**
-
-Note: The .venv needs to be created first because it is related to the specific user for smooth run.
-
-*On Windows (PowerShell)*
- ```bash
- python -m venv .venv
-
-.venv\Scripts\activate
- ```
-
-
-*On macOS / Linux*
- ```bash
- python3 -m venv .venv
-
-source .venv/bin/activate
- ```
-
-
-3️. Install Dependencies
- ```bash
- pip install -r requirements.txt
- ```
-
-
-4️. Install Playwright Browsers
- ```bash
- playwright install
- ```
-
-
+cd jet-automation-task-js
+```
+2. Install Dependencies
+```bash
+npm install
+```
+3. Install Playwright Browsers
+```bash
+npx playwright install
+```
 ## Design Pattern
-
 The project follows the Page Object Model (POM) for maintainability and reusability.
 
-Each page (like the Careers page) has its own class containing:
+Each page has its own class containing:
 
 - Locators
 
 - Page actions (like searching, filtering, validating results)
 
 ## Test Scenarios Automated
-- Test Case 1: Job Search — Keyword "Test"
+### Test Case 1: Job Search — Keyword "Test"
+**Steps:**
 
-Steps:
+1. Open the Careers Page
 
-Open the Careers Page
+2. Enter job title "Test" and click Search
 
-Enter job title “Test” and click Search
+3. Verify search results appear from multiple locations
 
-Verify search results appear from multiple locations
+4. Refine search to Country: Netherlands
 
-Refine search to Country: Netherlands
+5. Verify that all results are now for Netherlands only
 
-Verify that all results are now for Netherlands only
+### Test Case 2: Job Search — Category "Sales"
+**Steps:**
 
-- Test Case 2: Job Search — Category "Sales"
+1. Open the Careers Page
 
-Steps:
+2. Click on "Search for Job Title" and select "Sales" among Job Categories
 
-Open the Careers Page
+3. Scroll to "Refine your search"
 
-Click on “Search for Job Title” and select “Sales” among Job Categories
+4. Verify Category "Sales" is selected and the search results number is matching
 
-Scroll to “Refine your search”
+5. Refine search from the left panel to Country "Germany"
 
-Verify Category “Sales” is selected and the search results number is matching
-
-Then Refine your search from the left panel to the Country “Germany”
-
-Verify the number of the search results is matching and category is “Sales” on
-all results
+6. Verify the number of search results matches and category is "Sales" on all results
 
 ## Running the Tests
-- Run All Tests 
- ```bash
- pytest -v
- ```
-
-
-- Run a Specific Test File
- ```bash
-pytest tests/test_search_test_jobs.py -v
-
-pytest tests/test_sales_jobs.py -v
-
- ```
-
-- Generate an HTML Report
- ```bash
- pytest --html=report.html --self-contained-html -v
- ```
-
-## Author
-Shahab Khan
-Full Stack QA Engineer | Test Automation Specialist
-[mohdshahabk17@gmail.com](mailto:mohdshahabk17@gmail.com)
+### Run All Tests
+```bash
+npx playwright test
+```
+### Run Specific Test File
+```bash
+npx playwright test tests/test-search-test-jobs.spec.js
+npx playwright test tests/test-sales-jobs.spec.js
+```
+### Run in Headed Mode
+```bash
+npx playwright test --headed
+```
+### Run on Chrome Only
+```bash
+npx playwright test --project=chromium --headed
+```
+### Generate HTML Report
+```bash
+npx playwright test --reporter=html
+npx playwright show-report
+```
+***Note:*** package-lock.json is automatically generated when you run npm install and should be committed to the repository to ensure consistent dependencies across installations.
